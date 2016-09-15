@@ -1,6 +1,0 @@
-exports[`test something 1`] = `
-"import foo from \"foo\";
-import a from \"a\";
-import b from \"b\";
-foo(a, b, c);var c = 1;"
-`;
