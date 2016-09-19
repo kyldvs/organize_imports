@@ -4,6 +4,8 @@
 
 'use strict';
 
+import getRequireKind from '../common/getRequireKind';
+
 /**
  * Adds missing imports.
  *
@@ -109,11 +111,12 @@ function createImportNode(t, name, kind) {
 
 function addImportsToBody(t, importNodes, body) {
   let index = 0;
+  let triggered = false;
   for (; index < body.length; index++) {
     const bodyNode = body[index];
-    if (
-      !t.isImportDeclaration(bodyNode)
-    ) {
+    if (getRequireKind(bodyNode)) {
+      triggered = true;
+    } else if (triggered) {
       break;
     }
   }
