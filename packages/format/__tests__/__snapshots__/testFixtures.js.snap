@@ -1,0 +1,22 @@
+exports[`test flow/removes_types_used_in_value_only.js 1`] = `
+"
+import type foo from \'foo\';
+
+import type foo from \'foo\';foo();"
+`;
+
+exports[`test flow/removes_values_used_as_types_only.js 1`] = `
+"
+import foo from \'foo\';
+
+function bar(): foo {}"
+`;
+
+exports[`test simple/one-used-one-unused.js 1`] = `
+"const foo = require(\'foo\');
+const bar = require(\'bar\');
+
+foo();"
+`;
+
+exports[`test simple/will-be-empty.js 1`] = `"const foo = require(\'foo\');"`;
