@@ -2,7 +2,7 @@
   "name": "organize_imports",
   "version": "1.0.0",
   "description": "organize_imports",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
     "test": "jest",
     "postinstall": "ln -s -f ../../hooks/pre-commit .git/hooks/pre-commit"
@@ -44,7 +44,7 @@
     "preprocessorIgnorePatterns": [
       "/node_modules/"
     ],
-    "rootDir": "",
+    "rootDir": "src",
     "testPathDirs": [
       "<rootDir>"
     ]
