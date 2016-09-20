@@ -17,14 +17,17 @@
     "url": "https://github.com/kyldvs/organize_imports/issues"
   },
   "homepage": "https://github.com/kyldvs/organize_imports#readme",
-  "devDependencies": {
+  "dependencies": {
     "babel-core": "^6.14.0",
-    "babel-jest": "^15.0.0",
+    "babel-generator": "^6.14.0",
     "babel-plugin-syntax-async-functions": "^6.13.0",
     "babel-plugin-syntax-flow": "^6.13.0",
     "babel-plugin-syntax-jsx": "^6.13.0",
     "babel-plugin-syntax-object-rest-spread": "^6.13.0",
-    "babel-plugin-syntax-trailing-function-commas": "^6.13.0",
+    "babel-plugin-syntax-trailing-function-commas": "^6.13.0"
+  },
+  "devDependencies": {
+    "babel-jest": "^15.0.0",
     "babel-plugin-transform-flow-strip-types": "^6.14.0",
     "babel-plugin-transform-object-rest-spread": "^6.8.0",
     "babel-plugin-transform-react-jsx": "^6.8.0",

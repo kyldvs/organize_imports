@@ -9,6 +9,7 @@ import * as babel from 'babel-core';
 import forEachFile from '../../common/forEachFile';
 import getBabelConfig from '../../common/getBabelConfig';
 import path from 'path';
+import postProcess from '../../common/postProcess';
 
 const FIXTURES_DIR = path.join(__dirname, '..', '__fixtures__');
 
@@ -19,9 +20,9 @@ forEachFile(FIXTURES_DIR, ({relativeName, contents}) => {
 });
 
 function run(code, options) {
-  return babel.transform(code, getBabelConfig({
+  return postProcess(babel.transform(code, getBabelConfig({
     plugins: [
       format(options),
     ],
-  })).code;
+  })).code);
 }

@@ -4,73 +4,12 @@
 
 'use strict';
 
-import getRequireKind from '../common/getRequireKind';
+import RequireGroups from '../common/RequireGroups';
+
+import getRequireIDs from '../common/getRequireIDs';
+import isRequire from '../common/isRequire';
 import match from '../common/match';
-
-const transforms = [
-  sortDestructures,
-  sortSpecifiers,
-];
-
-// Only valid requires should be passed into this function
-const config = [
-  // Type Imports
-  {
-    type: 'ImportDeclaration',
-    importKind: 'type',
-  },
-
-  // Side Effects
-  {
-    type: 'ExpressionStatement',
-  },
-
-  // TitleCase
-  node => {
-    if (node.type === 'ImportDeclaration') {
-      return isCapitalized(node.specifiers[0].local.name);
-    }
-    if (node.type === 'VariableDeclaration') {
-      const id = node.declarations[0].id;
-      if (id.type === 'Identifier') {
-        return isCapitalized(id.name);
-      }
-      if (id.type === 'ObjectPatern') {
-        if (id.key.type === 'ObjectProperty') {
-          return isCapitalized(id.key.name);
-        }
-        if (id.key.type === 'RestProperty') {
-          // We treat rest arguments as "camelCase"
-          return false;
-        }
-      }
-    }
-    return false;
-  },
-
-  // camelCase
-  node => {
-    if (node.type === 'ImportDeclaration') {
-      return !isCapitalized(node.specifiers[0].local.name);
-    }
-    if (node.type === 'VariableDeclaration') {
-      const id = node.declarations[0].id;
-      if (id.type === 'Identifier') {
-        return !isCapitalized(id.name);
-      }
-      if (id.type === 'ObjectPatern') {
-        if (id.key.type === 'ObjectProperty') {
-          return !isCapitalized(id.key.name);
-        }
-        if (id.key.type === 'RestProperty') {
-          // We treat rest arguments as "camelCase"
-          return true;
-        }
-      }
-    }
-    return false;
-  },
-];
+import reprintRequireGroups from '../common/reprintRequireGroups';
 
 export default function format(options) {
   return function babel_plugin({types: t}) {
@@ -82,8 +21,10 @@ export default function format(options) {
           const requires = [];
           const post = [];
 
+          // Partition all the body nodes, into pre-require-block,
+          // require-block, and post-require-block.
           path.node.body.forEach(node => {
-            if (getRequireKind(node)) {
+            if (isRequire(node)) {
               requires.push(node);
             } else {
               if (requires.length > 0) {
@@ -94,87 +35,64 @@ export default function format(options) {
             }
           });
 
-          const transformed = requires.map(node => transforms.reduce(
-            (node, fn) => fn(node),
-            node,
-          ));
+          // Transform require nodes as appropriate.
+          requires.forEach(node => {
+            // TODO: Sort specifiers and destructures.
+          });
 
-          const groups = [];
-          for (let i = 0; i < config.length; i++) {
-            groups.push([]);
-            transformed.forEach(node => {
-              if (match(node, config[i])) {
-                groups[i].push(node);
+          // Sort all the requires, this will prevent us needing to re-order
+          // the groups later.
+          requires.sort((n1, n2) => {
+            const ids1 = getRequireIDs(n1);
+            const ids2 = getRequireIDs(n2);
+
+            // This should never happen.
+            if (ids1.length === 0 || ids2.length === 0) {
+              return 0;
+            }
+
+            for (let i = 0; i < ids1.length && i < ids2.length; i++) {
+              if (ids1[i] < ids2[i]) {
+                return -1;
+              } else if (ids1[i] > ids2[i]) {
+                return 1;
               }
-            });
-          }
+            }
 
-          const resultRequires = [].concat(...groups);
-          const resultBody = [].concat(pre, resultRequires, post);
+            // Since they are all equal to this point we can compare based on
+            // the number of ids.
+            if (ids1.length < ids2.length) {
+              return -1;
+            } else if (ids1.length > ids2.length) {
+              return 1;
+            } else {
+              return 0;
+            }
+          });
 
-          path.node.body = resultBody;
+          // Create an empty array for each group.
+          const groups = RequireGroups.map(() => []);
+          const unknowns = [];
+
+          // For each require add it to the correct group.
+          requires.forEach(node => {
+            for (let i = 0; i < RequireGroups.length; i++) {
+              if (RequireGroups[i].some(pattern => match(node, pattern))) {
+                groups[i].push(node);
+                return;
+              }
+            }
+
+            // If we make it to here that's bad, but let's not drop the node.
+            unknowns.push(node);
+          });
+
+          const newRequires = reprintRequireGroups(groups);
+
+          // Sort each group.
+          path.node.body = [... pre, ...newRequires, ...post];
         },
       },
     };
   };
-}
-
-/**
- * This should only be passed import nodes, it will sort object patterns on the
- * left side of a require.
- */
-function sortDestructures(node) {
-  if (!match(node, {
-    type: 'VariableDeclaration',
-    declarations: [{
-      type: 'VariableDeclarator',
-      id: {
-        type: 'ObjectPattern',
-      },
-    }],
-  })) {
-    return node;
-  }
-
-  node.declarations[0].id.properties.sort((p1, p2) => {
-    // Rest properties always go at the end.
-    if (p1.type === 'RestProperty') {
-      return 1;
-    }
-    if (p2.type === 'RestProperty') {
-      return -1;
-    }
-
-    // Sort simple properties by their identifier.
-    if ([p1, p2].every(p => match(p, {
-      type: 'ObjectProperty',
-      key: {
-        type: 'Identifier',
-      },
-    }))) {
-      if (p1.key.name < p2.key.name) {
-        return -1;
-      } else if (p1.key.name > p2.key.name) {
-        return 1;
-      } else {
-        return 0;
-      }
-    }
-
-    // Not sure how to compare them otherwise. This should probable never
-    // happen.
-    return 0;
-  });
-}
-
-/**
- * This should only be passed import nodes, it will sort specifiers in an
- * import.
- */
-function sortSpecifiers(node) {
-  return node;
-}
-
-function isCapitalized(str) {
-  return str.charAt(0).toUpperCase() === str.charAt(0);
 }
