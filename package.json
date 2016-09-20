@@ -24,7 +24,8 @@
     "babel-plugin-syntax-flow": "^6.13.0",
     "babel-plugin-syntax-jsx": "^6.13.0",
     "babel-plugin-syntax-object-rest-spread": "^6.13.0",
-    "babel-plugin-syntax-trailing-function-commas": "^6.13.0"
+    "babel-plugin-syntax-trailing-function-commas": "^6.13.0",
+    "globals": "^9.10.0"
   },
   "devDependencies": {
     "babel-jest": "^15.0.0",

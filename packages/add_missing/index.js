@@ -5,6 +5,17 @@
 'use strict';
 
 import getRequireKind from '../common/getRequireKind';
+import globals from 'globals';
+
+const RELEVANT_GLOBALS = new Set(Object.keys({
+  ...globals.builtin,
+  ...globals.es5,
+  ...globals.es6,
+  ...globals.browser,
+  ...globals.node,
+  ...globals.commonjs,
+  ...globals.jest,
+}));
 
 /**
  * Adds missing imports.
@@ -43,6 +54,9 @@ export default function add_missing(_options) {
             ...extraVisitors,
             Identifier(path) {
               const name = path.node.name;
+              if (RELEVANT_GLOBALS.has(name)) {
+                return;
+              }
               if (path.scope.hasBinding(name)) {
                 return;
               }
