@@ -4,7 +4,7 @@
 
 'use strict';
 
-import format from '../index.js';
+import format from '../index';
 import * as babel from 'babel-core';
 import forEachFile from '../../common/forEachFile';
 import getBabelConfig from '../../common/getBabelConfig';

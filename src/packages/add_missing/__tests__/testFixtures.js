@@ -4,7 +4,7 @@
 
 'use strict';
 
-import add_missing from '../index.js';
+import add_missing from '../index';
 import * as babel from 'babel-core';
 import forEachFile from '../../common/forEachFile';
 import getBabelConfig from '../../common/getBabelConfig';

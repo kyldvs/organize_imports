@@ -4,11 +4,11 @@
 
 'use strict';
 
-import addMising from './packages/add_missing/index';
+import addMissing from './packages/add_missing/index';
 import * as babel from 'babel-core';
 import format from './packages/format/index';
-import getBabelConfig from './packages/getBabelConfig';
-import postProcess from './packages/postProcess';
+import getBabelConfig from './packages/common/getBabelConfig';
+import postProcess from './packages/common/postProcess';
 import removeExtra from './packages/remove_extra/index';
 
 export default function organize_imports(code, _options) {

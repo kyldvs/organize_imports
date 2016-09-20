@@ -17,9 +17,9 @@ export default function format(options) {
       visitor: {
         Program(path) {
 
-          const pre = [];
-          const requires = [];
-          const post = [];
+          let pre = [];
+          let requires = [];
+          let post = [];
 
           // Partition all the body nodes, into pre-require-block,
           // require-block, and post-require-block.
@@ -34,6 +34,11 @@ export default function format(options) {
               }
             }
           });
+
+          if (post.length === 0) {
+            post = pre;
+            pre = [];
+          }
 
           // Transform require nodes as appropriate.
           requires.forEach(node => {
