@@ -5,6 +5,7 @@
 'use strict';
 
 import getRequireKind from '../common/getRequireKind';
+import isDeclarationIdentifier from '../common/isDeclarationIdentifier';
 import globals from 'globals';
 
 const RELEVANT_GLOBALS = new Set(Object.keys({
@@ -54,12 +55,21 @@ export default function add_missing(_options) {
             ...extraVisitors,
             Identifier(path) {
               const name = path.node.name;
+
+              // If the name is a global, ignore it.
               if (RELEVANT_GLOBALS.has(name)) {
                 return;
               }
+
+              // If the name has a binding, ignore it.
               if (path.scope.hasBinding(name)) {
                 return;
               }
+
+              if (isDeclarationIdentifier(path)) {
+                return;
+              }
+
               const kind = t.isGenericTypeAnnotation(path.parentPath.node)
                 ? 'type'
                 : 'value';
