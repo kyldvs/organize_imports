@@ -1,108 +1,111 @@
 exports[`test auto/detects-imports.js 1`] = `
 "
-import foo from 'foo';
+import foo from \'foo\';
 
-import bar from 'bar';
+import bar from \'bar\';
 bar();"
 `;
 
 exports[`test auto/detects-imports.js 2`] = `
 "
-import foo from 'foo';
+import foo from \'foo\';
 
-import bar from 'bar';
+import bar from \'bar\';
 bar();"
 `;
 
 exports[`test auto/detects-imports.js 3`] = `
 "
-import foo from 'foo';
+import foo from \'foo\';
 
-const bar = require('bar');
+const bar = require(\'bar\');
 
 bar();"
 `;
 
 exports[`test auto/detects-imports.js 4`] = `
 "
-import foo from 'foo';
+import foo from \'foo\';
 
-import bar from 'bar';
+import bar from \'bar\';
 bar();"
 `;
 
 exports[`test auto/detects-requires.js 1`] = `
 "
-const foo = require('foo');
+const foo = require(\'foo\');
 
-const bar = require('bar');
+const bar = require(\'bar\');
 
 bar();"
 `;
 
 exports[`test auto/detects-requires.js 2`] = `
 "
-const foo = require('foo');
+const foo = require(\'foo\');
 
-const bar = require('bar');
+const bar = require(\'bar\');
 
 bar();"
 `;
 
 exports[`test auto/detects-requires.js 3`] = `
 "
-const foo = require('foo');
+const foo = require(\'foo\');
 
-const bar = require('bar');
+const bar = require(\'bar\');
 
 bar();"
 `;
 
 exports[`test auto/detects-requires.js 4`] = `
 "
-const foo = require('foo');
+const foo = require(\'foo\');
 
-import bar from 'bar';
+import bar from \'bar\';
 bar();"
 `;
 
 exports[`test auto/ignores_type_imports.js 1`] = `
 "
-import type foo from 'foo';
+import type foo from \'foo\';
 
-const bar = require('bar');
+const bar = require(\'bar\');
 
 bar();"
 `;
 
 exports[`test auto/ignores_type_imports.js 2`] = `
 "
-import type foo from 'foo';
+import type foo from \'foo\';
 
-const bar = require('bar');
+const bar = require(\'bar\');
 
 bar();"
 `;
 
 exports[`test auto/ignores_type_imports.js 3`] = `
 "
-import type foo from 'foo';
+import type foo from \'foo\';
 
-const bar = require('bar');
+const bar = require(\'bar\');
 
 bar();"
 `;
 
 exports[`test auto/ignores_type_imports.js 4`] = `
 "
-import type foo from 'foo';
+import type foo from \'foo\';
 
-import bar from 'bar';
+import bar from \'bar\';
 bar();"
 `;
 
 exports[`test flow/both_type_and_value_position.js 1`] = `
-"
+"const Foo = require(\"Foo\");
+
+const Bar = require(\"Bar\");
+
 // Type position of Foo comes before value position.
 function foo(): Foo {
   return new Foo();
@@ -112,15 +115,14 @@ function foo(): Foo {
 const theBar = new Bar();
 function bar(): Bar {
   return theBar;
-}
-
-const Foo = require("Foo");
-
-const Bar = require("Bar");"
+}"
 `;
 
 exports[`test flow/both_type_and_value_position.js 2`] = `
-"
+"const Foo = require(\"Foo\");
+
+const Bar = require(\"Bar\");
+
 // Type position of Foo comes before value position.
 function foo(): Foo {
   return new Foo();
@@ -130,15 +132,14 @@ function foo(): Foo {
 const theBar = new Bar();
 function bar(): Bar {
   return theBar;
-}
-
-const Foo = require("Foo");
-
-const Bar = require("Bar");"
+}"
 `;
 
 exports[`test flow/both_type_and_value_position.js 3`] = `
-"
+"const Foo = require(\"Foo\");
+
+const Bar = require(\"Bar\");
+
 // Type position of Foo comes before value position.
 function foo(): Foo {
   return new Foo();
@@ -148,15 +149,13 @@ function foo(): Foo {
 const theBar = new Bar();
 function bar(): Bar {
   return theBar;
-}
-
-const Foo = require("Foo");
-
-const Bar = require("Bar");"
+}"
 `;
 
 exports[`test flow/both_type_and_value_position.js 4`] = `
-"
+"import Foo from \"Foo\";
+import Bar from \"Bar\";
+
 // Type position of Foo comes before value position.
 function foo(): Foo {
   return new Foo();
@@ -166,77 +165,76 @@ function foo(): Foo {
 const theBar = new Bar();
 function bar(): Bar {
   return theBar;
-}
-import Foo from "Foo";
-import Bar from "Bar";"
+}"
 `;
 
 exports[`test flow/missing_type.js 1`] = `
-"
-function foo(x: Foo) {}
-import type Foo from "Foo";"
+"import type Foo from \"Foo\";
+
+function foo(x: Foo) {}"
 `;
 
 exports[`test flow/missing_type.js 2`] = `
-"
-function foo(x: Foo) {}
-import type Foo from "Foo";"
+"import type Foo from \"Foo\";
+
+function foo(x: Foo) {}"
 `;
 
 exports[`test flow/missing_type.js 3`] = `
-"
-function foo(x: Foo) {}
-import type Foo from "Foo";"
+"import type Foo from \"Foo\";
+
+function foo(x: Foo) {}"
 `;
 
 exports[`test flow/missing_type.js 4`] = `
-"
-function foo(x: Foo) {}
-import type Foo from "Foo";"
+"import type Foo from \"Foo\";
+
+function foo(x: Foo) {}"
 `;
 
 exports[`test flow/nested_types.js 1`] = `
-"
+"import type Foo from \"Foo\";
+import type Bar from \"Bar\";
+import type Buz from \"Buz\";
+
 type Baz = string;
 
-function foo(): ?Foo<Bar<Baz, Buz>> {}
-import type Foo from "Foo";
-import type Bar from "Bar";
-import type Buz from "Buz";"
+function foo(): ?Foo<Bar<Baz, Buz>> {}"
 `;
 
 exports[`test flow/nested_types.js 2`] = `
-"
+"import type Foo from \"Foo\";
+import type Bar from \"Bar\";
+import type Buz from \"Buz\";
+
 type Baz = string;
 
-function foo(): ?Foo<Bar<Baz, Buz>> {}
-import type Foo from "Foo";
-import type Bar from "Bar";
-import type Buz from "Buz";"
+function foo(): ?Foo<Bar<Baz, Buz>> {}"
 `;
 
 exports[`test flow/nested_types.js 3`] = `
-"
+"import type Foo from \"Foo\";
+import type Bar from \"Bar\";
+import type Buz from \"Buz\";
+
 type Baz = string;
 
-function foo(): ?Foo<Bar<Baz, Buz>> {}
-import type Foo from "Foo";
-import type Bar from "Bar";
-import type Buz from "Buz";"
+function foo(): ?Foo<Bar<Baz, Buz>> {}"
 `;
 
 exports[`test flow/nested_types.js 4`] = `
-"
+"import type Foo from \"Foo\";
+import type Bar from \"Bar\";
+import type Buz from \"Buz\";
+
 type Baz = string;
 
-function foo(): ?Foo<Bar<Baz, Buz>> {}
-import type Foo from "Foo";
-import type Bar from "Bar";
-import type Buz from "Buz";"
+function foo(): ?Foo<Bar<Baz, Buz>> {}"
 `;
 
 exports[`test scope-trickery/test1.js 1`] = `
-"
+"const bar = require(\"bar\");
+
 function foo() {
   var bar = () => {};
 }
@@ -245,13 +243,12 @@ bar();
 var buz = () => {};
 function baz() {
   buz();
-}
-
-const bar = require("bar");"
+}"
 `;
 
 exports[`test scope-trickery/test1.js 2`] = `
-"
+"const bar = require(\"bar\");
+
 function foo() {
   var bar = () => {};
 }
@@ -260,13 +257,12 @@ bar();
 var buz = () => {};
 function baz() {
   buz();
-}
-
-const bar = require("bar");"
+}"
 `;
 
 exports[`test scope-trickery/test1.js 3`] = `
-"
+"const bar = require(\"bar\");
+
 function foo() {
   var bar = () => {};
 }
@@ -275,13 +271,12 @@ bar();
 var buz = () => {};
 function baz() {
   buz();
-}
-
-const bar = require("bar");"
+}"
 `;
 
 exports[`test scope-trickery/test1.js 4`] = `
-"
+"import bar from \"bar\";
+
 function foo() {
   var bar = () => {};
 }
@@ -290,8 +285,7 @@ bar();
 var buz = () => {};
 function baz() {
   buz();
-}
-import bar from "bar";"
+}"
 `;
 
 exports[`test simple/empty.js 1`] = `""`;
@@ -303,66 +297,66 @@ exports[`test simple/empty.js 3`] = `""`;
 exports[`test simple/empty.js 4`] = `""`;
 
 exports[`test simple/multiple-statements.js 1`] = `
-"foo;
-foo;
-foo;
+"const foo = require(\"foo\");
 
-const foo = require("foo");"
+foo;
+foo;
+foo;"
 `;
 
 exports[`test simple/multiple-statements.js 2`] = `
-"foo;
-foo;
-foo;
+"const foo = require(\"foo\");
 
-const foo = require("foo");"
+foo;
+foo;
+foo;"
 `;
 
 exports[`test simple/multiple-statements.js 3`] = `
-"foo;
-foo;
-foo;
+"const foo = require(\"foo\");
 
-const foo = require("foo");"
+foo;
+foo;
+foo;"
 `;
 
 exports[`test simple/multiple-statements.js 4`] = `
-"foo;
+"import foo from \"foo\";
 foo;
 foo;
-import foo from "foo";"
+foo;"
 `;
 
 exports[`test simple/one-statement.js 1`] = `
-"foo;
+"const foo = require(\"foo\");
 
-const foo = require("foo");"
+foo;"
 `;
 
 exports[`test simple/one-statement.js 2`] = `
-"foo;
+"const foo = require(\"foo\");
 
-const foo = require("foo");"
+foo;"
 `;
 
 exports[`test simple/one-statement.js 3`] = `
-"foo;
+"const foo = require(\"foo\");
 
-const foo = require("foo");"
+foo;"
 `;
 
 exports[`test simple/one-statement.js 4`] = `
-"foo;
-import foo from "foo";"
+"import foo from \"foo\";
+foo;"
 `;
 
 exports[`test simple/skips-first-non-import-statements.js 1`] = `
 "
 const start = 0; // Date.now() or something.
 
-const foo = require('foo');
+const foo = require(\'foo\');
 
-const bar = require('bar');
+const bar = require(\'bar\');
 
 foo();
 bar();"
@@ -372,9 +366,9 @@ exports[`test simple/skips-first-non-import-statements.js 2`] = `
 "
 const start = 0; // Date.now() or something.
 
-const foo = require('foo');
+const foo = require(\'foo\');
 
-const bar = require('bar');
+const bar = require(\'bar\');
 
 foo();
 bar();"
@@ -384,9 +378,9 @@ exports[`test simple/skips-first-non-import-statements.js 3`] = `
 "
 const start = 0; // Date.now() or something.
 
-const foo = require('foo');
+const foo = require(\'foo\');
 
-const bar = require('bar');
+const bar = require(\'bar\');
 
 foo();
 bar();"
@@ -396,9 +390,9 @@ exports[`test simple/skips-first-non-import-statements.js 4`] = `
 "
 const start = 0; // Date.now() or something.
 
-const foo = require('foo');
+const foo = require(\'foo\');
 
-import bar from 'bar';
+import bar from \'bar\';
 foo();
 bar();"
 `;

@@ -11,7 +11,7 @@ function bar(): foo {}"
 `;
 
 exports[`test simple/one-used-one-unused.js 1`] = `
-"const foo = require(\'foo\');
+"const foo = require('foo');
 
 
 foo();"
