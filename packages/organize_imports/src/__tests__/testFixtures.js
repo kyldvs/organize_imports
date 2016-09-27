@@ -6,7 +6,7 @@
 
 import organize_imports from '../index';
 import path from 'path';
-import forEachFile from '../packages/common/forEachFile';
+import forEachFile from '../common/forEachFile';
 
 const FIXTURES_DIR = path.join(__dirname, '..', '__fixtures__');
 

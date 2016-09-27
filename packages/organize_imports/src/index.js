@@ -4,12 +4,12 @@
 
 'use strict';
 
-import addMissing from './packages/add_missing/index';
+import addMissing from './add_missing/index';
 import * as babel from 'babel-core';
-import format from './packages/format/index';
-import getBabelConfig from './packages/common/getBabelConfig';
-import postProcess from './packages/common/postProcess';
-import removeExtra from './packages/remove_extra/index';
+import format from './format/index';
+import getBabelConfig from './common/getBabelConfig';
+import postProcess from './common/postProcess';
+import removeExtra from './remove_extra/index';
 
 module.exports = function organize_imports(code, _options) {
   const options = _options || {};
