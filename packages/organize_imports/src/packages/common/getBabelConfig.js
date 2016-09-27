@@ -7,11 +7,11 @@
 const DEFAULT_CONFIG = {
   sourceType: 'module',
   plugins: [
-    'syntax-async-functions',
-    'syntax-flow',
-    'syntax-jsx',
-    'syntax-object-rest-spread',
-    'syntax-trailing-function-commas',
+    require('babel-plugin-syntax-async-functions'),
+    require('babel-plugin-syntax-flow'),
+    require('babel-plugin-syntax-jsx'),
+    require('babel-plugin-syntax-object-rest-spread'),
+    require('babel-plugin-syntax-trailing-function-commas'),
   ],
 };
 

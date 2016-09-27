@@ -11,7 +11,7 @@ import getBabelConfig from './packages/common/getBabelConfig';
 import postProcess from './packages/common/postProcess';
 import removeExtra from './packages/remove_extra/index';
 
-export default function organize_imports(code, _options) {
+module.exports = function organize_imports(code, _options) {
   const options = _options || {};
   return postProcess(babel.transform(code, getBabelConfig({
     plugins: [

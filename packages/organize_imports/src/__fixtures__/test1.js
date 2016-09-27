@@ -20,7 +20,7 @@ class FluxStore {
   _dispatchToken: FluxDispatchToken;
 
   // protected, available to subclasses
-  __changed: boolean;
+  __changed: bool;
   __changeEvent: string;
   __className: any;
   __dispatcher: Dispatcher<any>;
@@ -33,15 +33,12 @@ class FluxStore {
     this.__changeEvent = 'change';
     this.__dispatcher = dispatcher;
     this.__emitter = new EventEmitter();
-    this._dispatchToken = dispatcher.register(
-      (payload) => {
-        this.__invokeOnDispatch(payload);
-      },
-      this.__getIDForDispatcher(),
-    );
+    this._dispatchToken = dispatcher.register(payload => {
+      this.__invokeOnDispatch(payload);
+    }, this.__getIDForDispatcher());
   }
 
-  addListener(callback: (eventType?: string) => void): {remove: () => void} {
+  addListener(callback: (eventType?: string) => void): { remove: () => void } {
     return this.__emitter.addListener(this.__changeEvent, callback);
   }
 
@@ -61,21 +58,13 @@ class FluxStore {
   /**
    * Returns whether the store has changed during the most recent dispatch.
    */
-  hasChanged(): boolean {
-    invariant(
-      this.__dispatcher.isDispatching(),
-      '%s.hasChanged(): Must be invoked while dispatching.',
-      this.__className
-    );
+  hasChanged(): bool {
+    invariant(this.__dispatcher.isDispatching(), '%s.hasChanged(): Must be invoked while dispatching.', this.__className);
     return this.__changed;
   }
 
   __emitChange(): void {
-    invariant(
-      this.__dispatcher.isDispatching(),
-      '%s.__emitChange(): Must be invoked while dispatching.',
-      this.__className
-    );
+    invariant(this.__dispatcher.isDispatching(), '%s.__emitChange(): Must be invoked while dispatching.', this.__className);
     this.__changed = true;
   }
 
@@ -98,11 +87,7 @@ class FluxStore {
    * only way the store receives new data.
    */
   __onDispatch(payload: Object): void {
-    invariant(
-      false,
-      '%s has not overridden FluxStore.__onDispatch(), which is required',
-      this.__className
-    );
+    invariant(false, '%s has not overridden FluxStore.__onDispatch(), which is required', this.__className);
   }
 
   /**

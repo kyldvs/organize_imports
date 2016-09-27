@@ -63,5 +63,5 @@ function run() {
   // editor.setCursorBufferPosition([row, column]);
 
   // TODO: Save the file if that option is specified.
-  // editor.save();
+  editor.save();
 }

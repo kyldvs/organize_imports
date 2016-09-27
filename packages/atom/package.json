@@ -16,6 +16,6 @@
     "atom": ">=1.0.0 <2.0.0"
   },
   "dependencies": {
-    "organize-imports": "^1.0.0"
+    "organize-imports": "1.0.3"
   }
 }
