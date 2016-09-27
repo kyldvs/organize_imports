@@ -1,5 +1,5 @@
 {
-  "name": "organize_imports",
+  "name": "organize-imports",
   "version": "1.0.0",
   "description": "organize_imports",
   "main": "lib/index.js",

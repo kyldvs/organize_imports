@@ -1,0 +1,21 @@
+{
+  "name": "organize-imports-atom",
+  "main": "./lib/index.js",
+  "version": "1.0.0",
+  "description": "organize imports",
+  "keywords": [],
+  "activationCommands": {
+    "atom-workspace": "organize-imports:run"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kyldvs/organize_imports.git"
+  },
+  "license": "ISC",
+  "engines": {
+    "atom": ">=1.0.0 <2.0.0"
+  },
+  "dependencies": {
+    "organize-imports": "^1.0.0"
+  }
+}
