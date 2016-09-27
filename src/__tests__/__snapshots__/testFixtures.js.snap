@@ -6,14 +6,14 @@ exports[`test test1.js 1`] = `
  * @flow
  */
 
-'use strict';
+\'use strict\';
 
-import type DispatchToken from 'DispatchToken';
-import type Dispatcher from 'Dispatcher';
+import type DispatchToken from \'DispatchToken\';
+import type Dispatcher from \'Dispatcher\';
 
-const EventEmitter = require('EventEmitter');
+const EventEmitter = require(\'EventEmitter\');
 
-const invariant = require('invariant');
+const invariant = require(\'invariant\');
 
 export type FluxDispatchToken = DispatchToken;
 
@@ -38,7 +38,7 @@ class FluxStore {
     this.__className = this.constructor.name;
 
     this.__changed = false;
-    this.__changeEvent = 'change';
+    this.__changeEvent = \'change\';
     this.__dispatcher = dispatcher;
     this.__emitter = new EventEmitter();
     this._dispatchToken = dispatcher.register(payload => {
@@ -55,8 +55,8 @@ class FluxStore {
   }
 
   /**
-   * This exposes a unique string to identify each store's registered callback.
-   * This is used with the dispatcher's waitFor method to devlaratively depend
+   * This exposes a unique string to identify each store\'s registered callback.
+   * This is used with the dispatcher\'s waitFor method to devlaratively depend
    * on other stores updating themselves first.
    */
   getDispatchToken(): string {
@@ -67,12 +67,12 @@ class FluxStore {
    * Returns whether the store has changed during the most recent dispatch.
    */
   hasChanged(): bool {
-    invariant(this.__dispatcher.isDispatching(), '%s.hasChanged(): Must be invoked while dispatching.', this.__className);
+    invariant(this.__dispatcher.isDispatching(), \'%s.hasChanged(): Must be invoked while dispatching.\', this.__className);
     return this.__changed;
   }
 
   __emitChange(): void {
-    invariant(this.__dispatcher.isDispatching(), '%s.__emitChange(): Must be invoked while dispatching.', this.__className);
+    invariant(this.__dispatcher.isDispatching(), \'%s.__emitChange(): Must be invoked while dispatching.\', this.__className);
     this.__changed = true;
   }
 
@@ -95,7 +95,7 @@ class FluxStore {
    * only way the store receives new data.
    */
   __onDispatch(payload: Object): void {
-    invariant(false, '%s has not overridden FluxStore.__onDispatch(), which is required', this.__className);
+    invariant(false, \'%s has not overridden FluxStore.__onDispatch(), which is required\', this.__className);
   }
 
   /**
