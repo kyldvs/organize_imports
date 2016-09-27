@@ -5,8 +5,7 @@
   "main": "lib/index.js",
   "scripts": {
     "build": "babel src -d lib",
-    "test": "jest",
-    "postinstall": "ln -s -f ../../hooks/pre-commit .git/hooks/pre-commit"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
