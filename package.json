@@ -44,9 +44,9 @@
     "preprocessorIgnorePatterns": [
       "/node_modules/"
     ],
-    "rootDir": "src",
+    "rootDir": "",
     "testPathDirs": [
-      "<rootDir>"
+      "<rootDir>/src"
     ]
   }
 }
