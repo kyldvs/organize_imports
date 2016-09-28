@@ -7,10 +7,7 @@
   "activationCommands": {
     "atom-workspace": "organize-imports:run"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/kyldvs/organize_imports.git"
-  },
+  "repository": "https://github.com/kyldvs/organize_imports/tree/master/packages/atom",
   "license": "ISC",
   "engines": {
     "atom": ">=1.0.0 <2.0.0"
